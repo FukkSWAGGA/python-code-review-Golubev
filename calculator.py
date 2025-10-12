@@ -1,66 +1,45 @@
-def add(a, b):
-    """Возвращает сумму a и b."""
-    return a + b
+def ADD(x,y):  # Нарушение PEP 8: имя функции в верхнем регистре, отсутствуют пробелы после запятой
+    return x + y
 
 
-def subtract(a, b):
-    """Возвращает разность a и b."""
+def Subtract(a, b):  # Нарушение PEP 8: имя функции должно быть в нижнем регистре
     return a - b
 
 
 def multiply(a, b):
-    """Возвращает произведение a и b."""
-    return a * b
+    result = a * b   # Избыточная переменная, нарушен принцип KISS
+    return result
 
 
 def divide(a, b):
-    """Возвращает результат деления a на b.
-    Если делитель равен нулю — возвращает сообщение об ошибке.
-    """
-    if b == 0:
-        return "Ошибка: деление на ноль"
-    return a / b
+    return a / b     # Нет проверки делителя на ноль
 
 
 def main():
-    """Простой консольный интерфейс калькулятора."""
-    print("Простой калькулятор на Python")
-    print("Доступные операции: +, -, *, /")
-    print("Для выхода введите 'exit'")
+    print("Калькулятор!")  
+    print("Введите выражение в формате: число операция число")
 
     while True:
-        user_input = input("\nВведите выражение (например, 2 + 3): ")
-
-        if user_input.lower() == "exit":
-            print("Выход из программы.")
+        userInput = input(">>> ")   # Нарушен стиль именования переменных (camelCase вместо snake_case)
+        if userInput == "exit":     # Нет приведения к нижнему регистру, 'EXIT' не сработает
             break
 
-        try:
-            parts = user_input.split()
-            if len(parts) != 3:
-                print("Ошибка: используйте формат 'число операция число'")
-                continue
+        parts = userInput.split()
+        if len(parts) != 3:
+            print("Ошибка: используйте формат 'a + b'")
+            continue
 
-            a = float(parts[0])
-            op = parts[1]
-            b = float(parts[2])
+        a = parts[0]    # Нет преобразования типов, значения остаются строками
+        op = parts[1]
+        b = parts[2]
 
-            if op == '+':
-                result = add(a, b)
-            elif op == '-':
-                result = subtract(a, b)
-            elif op == '*':
-                result = multiply(a, b)
-            elif op == '/':
-                result = divide(a, b)
-            else:
-                print("Неизвестная операция.")
-                continue
-
-            print("Результат:", result)
-        except ValueError:
-            print("Ошибка: введите корректные числа.")
-
-
-if __name__ == "__main__":
-    main()
+        if op == "+":
+            print(ADD(a,b))   # Отсутствуют пробелы после запятых, передаются строки, будет конкатенация
+        elif op == "-":
+            print(Subtract(a,b))
+        elif op == "*":
+            print(multiply(a,b))
+        elif op == "/":
+            print(divide(a,b))
+        else:
+            print("Неизвестная операция.")
